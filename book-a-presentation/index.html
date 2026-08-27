@@ -114,36 +114,30 @@
   </header>
   <div aria-hidden="true" class="mobile-panel" id="mobile-menu">
    <nav aria-label="Mobile navigation">
-    <a href="/">
-     Home
-    </a>
-    <a href="/about/">
-     About the Ministry
-    </a>
-    <a href="/terry-voyles/">
-     Terry Voyles
-    </a>
-    <a href="/human-trafficking/">
-     Education
-    </a>
-    <a href="/resources/">
-     Resources
-    </a>
-    <a href="/get-help/">
-     Get Help
-    </a>
-    <a href="/book-a-presentation/">
-     Book a Presentation
-    </a>
-    <a href="/events/">
-     Events
-    </a>
-    <a href="/donate/">
-     Donate
-    </a>
-    <a href="/contact/">
-     Contact
-    </a>
+    <a href="/">Home</a>
+    <div class="mobile-group">
+     <button class="mobile-parent" type="button" aria-expanded="false" aria-controls="mobile-about-submenu">
+      <span>About</span><span class="mobile-parent-icon" aria-hidden="true">+</span>
+     </button>
+     <div class="mobile-sub" id="mobile-about-submenu" hidden>
+      <a href="/about/">About the Ministry</a>
+      <a href="/terry-voyles/">Terry “Scooter” Voyles</a>
+     </div>
+    </div>
+    <div class="mobile-group">
+     <button class="mobile-parent" type="button" aria-expanded="false" aria-controls="mobile-learn-submenu">
+      <span>Learn</span><span class="mobile-parent-icon" aria-hidden="true">+</span>
+     </button>
+     <div class="mobile-sub" id="mobile-learn-submenu" hidden>
+      <a href="/human-trafficking/">Human Trafficking Education</a>
+      <a href="/resources/">Resources</a>
+      <a href="/get-help/">Get Help</a>
+     </div>
+    </div>
+    <a href="/book-a-presentation/">Book a Presentation</a>
+    <a href="/events/">Events</a>
+    <a href="/donate/">Donate</a>
+    <a href="/contact/">Contact</a>
    </nav>
   </div>
   <main id="main-content">

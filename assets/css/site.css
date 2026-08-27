@@ -29,3 +29,139 @@ input,select,textarea{width:100%;padding:.85rem .9rem;border:2px solid #c4cbd1;b
     display: none;
   }
 }
+
+/* Navigation refinements: desktop hover dropdowns + mobile accordions */
+@media (min-width: 981px) {
+  .desktop-nav .dropdown-menu {
+    top: 100%;
+    margin-top: 0;
+  }
+
+  .desktop-nav .dropdown:hover .dropdown-menu,
+  .desktop-nav .dropdown:focus-within .dropdown-menu {
+    display: block;
+  }
+}
+
+.mobile-group {
+  display: grid;
+}
+
+.mobile-parent {
+  width: 100%;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.mobile-parent-icon {
+  font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+  font-size: .65em;
+  line-height: 1;
+  transition: transform .25s ease;
+}
+
+.mobile-parent[aria-expanded="true"] .mobile-parent-icon {
+  transform: rotate(45deg);
+}
+
+.mobile-sub {
+  padding: .1rem 0 .45rem 1rem;
+  margin: 0 0 .25rem .2rem;
+  border-left: 3px solid var(--red);
+}
+
+.mobile-sub[hidden] {
+  display: none;
+}
+
+.mobile-panel .mobile-sub a {
+  font-size: clamp(1.45rem, 5.5vw, 2.35rem);
+  line-height: 1.05;
+  padding: .22rem 0;
+  color: #dbe2e8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-parent-icon {
+    transition: none;
+  }
+}
+
+
+
+/* Final navigation behavior */
+@media (min-width: 981px) {
+  .desktop-nav .dropdown {
+    position: relative;
+  }
+
+  .desktop-nav .dropdown-menu {
+    display: block;
+    top: 100%;
+    margin-top: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity .16s ease, transform .16s ease, visibility .16s ease;
+  }
+
+  .desktop-nav .dropdown:hover .dropdown-menu,
+  .desktop-nav .dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  /* Creates a tiny hover bridge so moving from parent to submenu cannot close it. */
+  .desktop-nav .dropdown-menu::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -6px;
+    height: 6px;
+  }
+}
+
+.mobile-group {
+  display: grid;
+}
+
+.mobile-parent {
+  width: 100%;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.mobile-sub[hidden] {
+  display: none !important;
+}
+
+.mobile-panel .mobile-sub {
+  display: grid;
+  padding: .15rem 0 .55rem 1rem;
+  margin: 0 0 .35rem .2rem;
+  border-left: 3px solid var(--red);
+}
+
+.mobile-panel .mobile-sub a {
+  font-size: clamp(1.35rem, 5vw, 2.2rem);
+  line-height: 1.08;
+  padding: .24rem 0;
+  color: #dbe2e8;
+}
+
+@media (min-width: 981px) {
+  /* Desktop dropdowns are hover/focus driven; the parent label itself is not a click toggle. */
+  .desktop-nav .drop-btn {
+    pointer-events: none;
+  }
+}
