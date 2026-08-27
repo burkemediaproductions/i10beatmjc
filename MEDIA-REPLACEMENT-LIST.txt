@@ -1,0 +1,41 @@
+Replace these paths with optimized WebP/JPG assets before launch:
+/assets/img/home-hero.webp
+/assets/img/home-hero-poster.webp
+/assets/img/home-awareness.webp
+/assets/img/home-community-presentation.webp
+/assets/img/home-faith-road.webp
+/assets/img/about-hero.webp
+/assets/img/about-hero-poster.webp
+/assets/img/about-ministry-road.webp
+/assets/img/about-partnership.webp
+/assets/img/terry-hero.webp
+/assets/img/terry-hero-poster.webp
+/assets/img/terry-speaking.webp
+/assets/img/terry-road-ministry.webp
+/assets/img/education-hero.webp
+/assets/img/education-hero-poster.webp
+/assets/img/education-definition.webp
+/assets/img/education-control.webp
+/assets/img/resources-hero.webp
+/assets/img/resources-phone.webp
+/assets/img/help-hero.webp
+/assets/img/help-safety.webp
+/assets/img/presentation-hero.webp
+/assets/img/presentation-hero-poster.webp
+/assets/img/presentation-stage.webp
+/assets/img/donate-hero.webp
+/assets/img/donate-ministry.webp
+/assets/img/events-hero.webp
+/assets/img/contact-hero.webp
+/assets/img/legal-hero.webp
+/assets/img/thank-you-hero.webp
+/assets/img/404-road.webp
+
+Video placeholders:
+/assets/video/home-hero.mp4
+/assets/video/about-hero.mp4
+/assets/video/terry-hero.mp4
+/assets/video/education-hero.mp4
+/assets/video/presentation-hero.mp4
+
+OG images expected under /assets/img/og/ using page path names.
