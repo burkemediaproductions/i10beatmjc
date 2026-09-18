@@ -98,3 +98,90 @@
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
 })();
+
+(() => {
+  const form = document.getElementById('donation-checkout-form');
+  if (!form) return;
+
+  const choices = Array.from(form.querySelectorAll('input[name="donation-choice"]'));
+  const otherWrap = document.getElementById('donation-other-wrap');
+  const otherInput = document.getElementById('donation-other-amount');
+  const status = document.getElementById('donation-status');
+  const submitButton = form.querySelector('.donation-submit');
+
+  function selectedChoice() {
+    return choices.find((input) => input.checked);
+  }
+
+  function updateOtherAmount() {
+    const selected = selectedChoice();
+    const isOther = selected && selected.value === 'other';
+
+    if (otherWrap) otherWrap.hidden = !isOther;
+    if (otherInput) {
+      otherInput.required = !!isOther;
+      if (!isOther) otherInput.value = '';
+    }
+  }
+
+  choices.forEach((input) => input.addEventListener('change', updateOtherAmount));
+  updateOtherAmount();
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('canceled') === '1' && status) {
+    status.textContent = 'Your donation was not completed. No charge was made. You can choose an amount and try again whenever you are ready.';
+  }
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const selected = selectedChoice();
+    let donationAmount = selected ? selected.value : '';
+    if (donationAmount === 'other') donationAmount = otherInput ? otherInput.value.trim() : '';
+
+    const amount = Number.parseFloat(donationAmount);
+    if (!Number.isFinite(amount) || amount < 5) {
+      if (status) status.textContent = 'Please enter a donation amount of at least $5.00.';
+      if (otherInput && selected && selected.value === 'other') otherInput.focus();
+      return;
+    }
+
+    if (status) status.textContent = 'Opening secure Stripe Checkout…';
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Opening Secure Checkout…';
+    }
+
+    try {
+      const response = await fetch('/.netlify/functions/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          donationAmount: amount.toFixed(2),
+          firstName: document.getElementById('donor-first-name')?.value.trim() || '',
+          lastName: document.getElementById('donor-last-name')?.value.trim() || '',
+          email: document.getElementById('donor-email')?.value.trim() || ''
+        })
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data.url) {
+        throw new Error(data.error || 'Unable to start secure checkout.');
+      }
+
+      window.location.assign(data.url);
+    } catch (error) {
+      console.error('Donation checkout error:', error);
+      if (status) status.textContent = error.message || 'Something went wrong. Please try again.';
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Continue to Secure Checkout';
+      }
+    }
+  });
+})();
