@@ -283,7 +283,7 @@
       </p>
      </div>
      <div class="form-card">
-      <form action="/thank-you/" method="POST" name="presentation-booking" netlify-honeypot="bot-field" data-netlify="true">
+      <form action="/thank-you-presentation/" method="POST" name="presentation-booking" netlify-honeypot="bot-field" data-netlify="true">
        <input name="form-name" type="hidden" value="presentation-booking"/>
        <p class="sr-only">
         <label>
@@ -472,5 +472,12 @@
   </footer>
   <script defer="" src="/assets/js/site.js">
   </script>
- </body>
+ <script>
+document.querySelector('form[name="presentation-booking"]').addEventListener('submit', function () {
+  try {
+    const name = this.elements.namedItem('name').value.trim().split(/\s+/)[0].slice(0, 40);
+    sessionStorage.setItem('i10beat-presentation-booking-greeting', JSON.stringify({name, savedAt: Date.now()}));
+  } catch (error) { /* The form can still submit if browser storage is unavailable. */ }
+});
+</script></body>
 </html>
