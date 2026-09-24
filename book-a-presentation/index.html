@@ -283,7 +283,7 @@
       </p>
      </div>
      <div class="form-card">
-      <form action="/" method="POST" name="presentation-booking" netlify-honeypot="bot-field" netlify>
+      <form action="/thank-you/" method="POST" name="presentation-booking" netlify-honeypot="bot-field" data-netlify="true">
        <input name="form-name" type="hidden" value="presentation-booking"/>
        <p class="sr-only">
         <label>
@@ -472,35 +472,5 @@
   </footer>
   <script defer="" src="/assets/js/site.js">
   </script>
- <script>
-  document.querySelectorAll('form[netlify]').forEach((form) => {
-    const status = document.createElement('p');
-    status.setAttribute('role', 'alert');
-    status.setAttribute('aria-live', 'polite');
-    status.hidden = true;
-    form.append(status);
-
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const button = form.querySelector('button[type="submit"]');
-      button.disabled = true;
-      status.hidden = true;
-
-      try {
-        const response = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(new FormData(form)).toString()
-        });
-        if (!response.ok) throw new Error(`Submission failed (${response.status})`);
-        window.location.assign('/thank-you/');
-      } catch (error) {
-        status.textContent = 'Your message could not be sent. Please try again, or contact us by phone or email.';
-        status.hidden = false;
-        button.disabled = false;
-        console.error('Form submission failed:', error);
-      }
-    });
-  });
-</script></body>
+ </body>
 </html>
